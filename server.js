@@ -2,6 +2,23 @@
 // IN VISUAL CODE YOU CAN USE Ctrl+K Ctrl+0 TO FOLD ALL CODE
 // THAT CAN BE USEFUL TO FOLD THE #REGION OF CODE
 
+const fs = require('fs');
+// Scan the artworks folder and add the artworks filename to the artworks object
+const artworks = {}
+const artworkFolders = fs.readdirSync('./public/artworks');
+for (let i = 0; i < artworkFolders.length; i++) {
+  const artworkFolder = artworkFolders[i];
+  const artworkFiles = fs.readdirSync(`./public/artworks/${artworkFolder}`);
+  const artworkFilesOfFolder = [];
+  // Add artworks filename to the artworks object
+  for (let j = 0; j < artworkFiles.length; j++) {
+    const artworkFile = artworkFiles[j].split('.')[0];
+    if (artworkFilesOfFolder.includes(artworkFile)) { continue; } // If the artwork file is already in the array, skip it (to avoid duplicates
+    artworkFilesOfFolder.push(artworkFile);
+  }
+  artworks[artworkFolder] = artworkFilesOfFolder;
+}
+
 //#region - SETTINGS - LAUNCH ARGUMENTS
 const inspector = require('inspector');
 const is_debug = inspector.url() !== undefined ? true : false;
@@ -46,7 +63,6 @@ for (let i = 0; i < args.length; i++) {
 let launch_folder = settings.ul ? __dirname.split('\\').pop().split('/').pop() : "";
 if (settings.sp) { launch_folder = settings.sp; } // Custom path (sp)
 if (settings.sp || settings.ul) { console.log(`launch_folder: ${launch_folder}`) }; // Get the name of the folder where the server is launched
-const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const UglifyJS = require('uglify-js');
@@ -68,6 +84,8 @@ function create_public_version_of_script(filePath, varName = false) {
         return "env_ = 'prod'";
     }
   });
+
+  fileContent = fileContent.replace("const artworks = 0;//#artworks_array", `const artworks = ${JSON.stringify(artworks)}`);
 
   // Minimiser le contenu modifié
   if (settings.m) { fileContent = UglifyJS.minify(fileContent).code; }
