@@ -159,13 +159,11 @@ async function fillGallery(folderName) {
 		const imageName = folder[i];
 		const image = document.createElement('img');
 		image.src = `${urlprefix}/artworks/${folderName}/${imageName}.webp`;
+		image.addEventListener('load', () => {
+			image.classList.add('fade-in');
+		});
 		gallery.appendChild(image);
 	};
-
-	// Wait for the gallery to be filled
-	await sleep(400);
-
-	gallery.classList.add('fade-in');
 }
 //#endregion
 
