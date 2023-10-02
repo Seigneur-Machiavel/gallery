@@ -163,6 +163,8 @@ async function fillGallery(folderName) {
 			image.classList.add('fade-in');
 		});
 		gallery.appendChild(image);
+
+		await sleep(20);
 	};
 }
 //#endregion
