@@ -162,9 +162,12 @@ async function fillGallery(folderName) {
 		image.addEventListener('load', () => {
 			image.classList.add('fade-in');
 		});
+		// transform: skew(1deg, 1deg);
+		const { rnd_1, rnd_2 } = { rnd_1: rnd(-10, 10), rnd_2: rnd(-10, 10) };
+		image.style.transform = `skew(${rnd_1 / 10}deg , ${rnd_2/10}deg)`;
 		gallery.appendChild(image);
 
-		await sleep(100);
+		await sleep(20);
 	};
 }
 //#endregion
