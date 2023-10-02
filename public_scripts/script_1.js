@@ -163,7 +163,7 @@ async function fillGallery(folderName) {
 			image.classList.add('fade-in');
 		});
 		// transform: skew(1deg, 1deg);
-		const { rnd_1, rnd_2 } = { rnd_1: rnd(-10, 10), rnd_2: rnd(-10, 10) };
+		const { rnd_1, rnd_2 } = { rnd_1: rnd(-20, 20), rnd_2: rnd(-20, 20) };
 		image.style.transform = `skew(${rnd_1 / 10}deg , ${rnd_2/10}deg)`;
 		gallery.appendChild(image);
 
