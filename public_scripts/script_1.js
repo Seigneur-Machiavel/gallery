@@ -152,7 +152,7 @@ async function fillGallery(folderName) {
 	gallery.classList.remove('fade-in');
 
 	// Wait for the gallery to fade-out
-	await sleep(600);
+	await sleep(200);
 
 	const folder = artworks[folderName];
 	for (let i = 0; i < folder.length; i++) {
